@@ -1,5 +1,6 @@
 <template>
   <login :acc="acc" />
+  <router-view />
 </template>
 
 <script>

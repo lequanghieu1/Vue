@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <h1 v-if="login" style="display:flex;justifyContent:center;">Đây là trang chủ</h1>
+  <div :class="{ login: login }">
     <div class="top"></div>
     <div class="main">
       <div class="alert alert-success alert-dismissible" v-if="success">
@@ -20,8 +21,18 @@
         </button>
         Vui lòng nhập đầy đủ thông tin
       </div>
-      <input type="text" placeholder="Tài Khoản" v-model="name" @keyup="nowarn()"/>
-      <input type="password" placeholder="Mật Khẩu" v-model="pass" @keyup="nowarn()"/>
+      <input
+        type="text"
+        placeholder="Tài Khoản"
+        v-model="name"
+        @keyup="nowarn()"
+      />
+      <input
+        type="password"
+        placeholder="Mật Khẩu"
+        v-model="pass"
+        @keyup="nowarn()"
+      />
       <button class="submit" @click="submit()">Đăng Nhập</button>
     </div>
     <div class="bot"></div>
@@ -43,6 +54,9 @@ export default {
         if (account.length !== 0) {
           this.success = true;
           this.fail = false;
+          setTimeout(() => {
+            this.login = true;
+          }, 2000);
         } else {
           console.log("Sai thông tin đăng nhập");
           this.success = false;
@@ -50,9 +64,9 @@ export default {
         }
       }
     },
-    nowarn(){
+    nowarn() {
       this.warn = false;
-    }
+    },
   },
   props: { acc: Array },
   computed: {},
@@ -63,12 +77,16 @@ export default {
       success: false,
       fail: false,
       warn: false,
+      login: false,
     };
   },
 };
 </script>
 
 <style scoped>
+.login {
+  display: none;
+}
 .top {
   height: 120px;
   width: 100%;
